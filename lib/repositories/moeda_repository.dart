@@ -10,7 +10,7 @@ class MoedaRepository {
       ),
     Moeda(
       icone: 'images/ethereum.png', 
-      nome: 'Rthereum', 
+      nome: 'Ethereum', 
       sigla: 'ETM', 
       preco: 9716.00,
       ),
