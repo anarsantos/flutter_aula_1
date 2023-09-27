@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/models/moeda.dart';
 import 'package:flutter_aula_1/pages/moedas_detalhes_page.dart';
+import 'package:flutter_aula_1/repositories/favoritas_repository.dart';
 import 'package:flutter_aula_1/repositories/moeda_repository.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MoedasPage extends StatefulWidget {
   MoedasPage({Key? key}) : super(key: key);
@@ -15,9 +17,10 @@ class _MoedasPageState extends State<MoedasPage> {
   final tabela = MoedaRepository.tabela;
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   List<Moeda> selecionadas = [];
+  late FavoritasRepository favoritas;
 
   appBarDinamica() {
-    if(selecionadas.isEmpty) {
+    if (selecionadas.isEmpty) {
       return AppBar(
         title: Text('Cripto Moedas'),
       );
@@ -39,22 +42,31 @@ class _MoedasPageState extends State<MoedasPage> {
           color: Colors.black87,
           fontSize: 20,
           fontWeight: FontWeight.bold,
-        ), 
-      );  
+        ),
+      );
     }
   }
 
   mostrarDetalhes(Moeda moeda) {
     Navigator.push(
-      context, 
+      context,
       MaterialPageRoute(
         builder: (_) => MoedasDetalhesPage(moeda: moeda),
       ),
     );
   }
 
+  limparSelecionadas() {
+    setState(() {
+      selecionadas = [];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    //favoritas = Provider.of<FavoritasRepository>(context);
+    favoritas = context.watch<FavoritasRepository>();
+
     return Scaffold(
       appBar: appBarDinamica(),
       body: ListView.separated(
@@ -64,19 +76,25 @@ class _MoedasPageState extends State<MoedasPage> {
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             leading: (selecionadas.contains(tabela[moeda]))
-              ? CircleAvatar(
-                child: Icon(Icons.check),
-              )
-              : SizedBox(
-                child: Image.asset(tabela[moeda].icone),
-                width: 40,
-              ), //clicar na lâmpada com o botão direito e encapsular com o SizeBox
-            title: Text(
-              tabela[moeda].nome,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
-              ),
+                ? CircleAvatar(
+                    child: Icon(Icons.check),
+                  )
+                : SizedBox(
+                    child: Image.asset(tabela[moeda].icone),
+                    width: 40,
+                  ), //clicar na lâmpada com o botão direito e encapsular com o SizeBox
+            title: Row(
+              children: [
+                Text(
+                  tabela[moeda].nome,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                if (favoritas.lista.contains(tabela[moeda]))
+                  Icon(Icons.circle, color: Colors.amber, size: 8),
+              ],
             ),
             trailing: Text(
               real.format(tabela[moeda].preco),
@@ -86,30 +104,33 @@ class _MoedasPageState extends State<MoedasPage> {
             onLongPress: () {
               setState(() {
                 (selecionadas.contains(tabela[moeda]))
-                ? selecionadas.remove(tabela[moeda])
-                : selecionadas.add(tabela[moeda]);
-              });              
+                    ? selecionadas.remove(tabela[moeda])
+                    : selecionadas.add(tabela[moeda]);
+              });
             },
             onTap: () => mostrarDetalhes(tabela[moeda]),
           );
-        }, 
+        },
         padding: EdgeInsets.all(16),
-        separatorBuilder: (_, ___) => Divider(), 
+        separatorBuilder: (_, ___) => Divider(),
         itemCount: tabela.length,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionadas.isNotEmpty
           ? FloatingActionButton.extended(
-            onPressed: () {},
-            icon: Icon(Icons.star),
-            label: Text(
-              'FAVORITAR',
-              style: TextStyle(
-                letterSpacing: 0,
-                fontWeight: FontWeight.bold,
+              onPressed: () {
+                favoritas.saveAll(selecionadas);
+                limparSelecionadas();
+              },
+              icon: Icon(Icons.star),
+              label: Text(
+                'FAVORITAR',
+                style: TextStyle(
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             )
-          )
           : null,
     );
   }
