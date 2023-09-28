@@ -34,12 +34,12 @@ class _MoedaCardState extends State<MoedaCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(top: 12),
+      margin: const EdgeInsets.only(top: 12),
       elevation: 2,
       child: InkWell(
         onTap: () => abrirDetalhes(),
         child: Padding(
-          padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
+          padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
           child: Row(
             children: [
               Image.asset(
@@ -48,20 +48,20 @@ class _MoedaCardState extends State<MoedaCard> {
               ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(left: 12),
+                  margin: const EdgeInsets.only(left: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.moeda.nome,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
                         widget.moeda.sigla,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 13,
                           color: Colors.black45,
                         ),
@@ -71,7 +71,7 @@ class _MoedaCardState extends State<MoedaCard> {
                 ), 
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 decoration: BoxDecoration(
                   color: precoColor['down']!.withOpacity(0.05),
                   border: Border.all(
@@ -89,11 +89,11 @@ class _MoedaCardState extends State<MoedaCard> {
                 ),
               ),
               PopupMenuButton(
-                icon: Icon(Icons.more_vert),
+                icon: const Icon(Icons.more_vert),
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     child: ListTile(
-                      title: Text('Remover das Favoritas'),
+                      title: const Text('Remover das Favoritas'),
                       onTap: () {
                         Navigator.pop(context);
                         Provider.of<FavoritasRepository>(context, listen: false).remove(widget.moeda);

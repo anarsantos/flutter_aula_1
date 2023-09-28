@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +25,7 @@ class _MoedasDetalhesPegaState extends State<MoedasDetalhesPage> {
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Compra realizada com sucesso!')),
+        const SnackBar(content: Text('Compra realizada com sucesso!')),
       );
     }
   }
@@ -38,18 +37,18 @@ class _MoedasDetalhesPegaState extends State<MoedasDetalhesPage> {
         title: Text(widget.moeda.nome),
       ),
       body: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 24),
+              padding: const EdgeInsets.only(bottom: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    child: Image.asset(widget.moeda.icone),
                     width: 50,
+                    child: Image.asset(widget.moeda.icone),
                   ),
                   Container(
                     width: 10,
@@ -70,30 +69,30 @@ class _MoedasDetalhesPegaState extends State<MoedasDetalhesPage> {
                 ? SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Container(
+                      margin: const EdgeInsets.only(bottom: 24),
+                      //padding: EdgeInsets.all(12),
+                      alignment: Alignment.center,
                       child: Text(
                         '$quantidade ${widget.moeda.sigla}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.teal,
                         ),
                       ),
-                      margin: EdgeInsets.only(bottom: 24),
-                      //padding: EdgeInsets.all(12),
-                      alignment: Alignment.center,
                       //decoration: BoxDecoration(
                       //  color: Colors.teal.withOpacity(0.05)
                       //),
                     ),
                   )
                 : Container(
-                    margin: EdgeInsets.only(bottom: 24),
+                    margin: const EdgeInsets.only(bottom: 24),
                   ),
             Form(
               key: _form,
               child: TextFormField(
                 controller: _valor,
-                style: TextStyle(fontSize: 22),
-                decoration: InputDecoration(
+                style: const TextStyle(fontSize: 22),
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Valor',
                   prefixIcon: Icon(Icons.monetization_on_outlined),
@@ -123,10 +122,10 @@ class _MoedasDetalhesPegaState extends State<MoedasDetalhesPage> {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(top: 24),
+              margin: const EdgeInsets.only(top: 24),
               child: ElevatedButton(
                 onPressed: comprar,
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.check),

@@ -30,22 +30,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         controller: pc,
-        children: [
+        onPageChanged: setPaginaAtual,
+        children: const [
           MoedasPage(),
           FavoritasPage(),
         ],
-        onPageChanged: setPaginaAtual,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: paginaAtual,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todas'),
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas'),
         ],
         onTap: (pagina) {
           pc.animateToPage(
             pagina, 
-            duration: Duration(milliseconds: 400), 
+            duration: const Duration(milliseconds: 400), 
             curve: Curves.ease,
           );
         },

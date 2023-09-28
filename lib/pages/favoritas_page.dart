@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_aula_1/repositories/favoritas_repository.dart';
 import 'package:flutter_aula_1/widgets/moeda_card.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_aula_1/models/moeda.dart';
 
 
 class FavoritasPage extends StatefulWidget {
@@ -18,16 +16,16 @@ class _FavoritasPageState extends State<FavoritasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Moedas Favoritas'),
+        title: const Text('Moedas Favoritas'),
       ),
       body: Container(
         color: Colors.indigo.withOpacity(0.05),
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         child: Consumer<FavoritasRepository>(
           builder: (context, favoritas, child) {
             return favoritas.lista.isEmpty
-                ? ListTile(
+                ? const ListTile(
                     leading: Icon(Icons.star),
                     title: Text('Ainda não há moedas favotiras'),
                   )
