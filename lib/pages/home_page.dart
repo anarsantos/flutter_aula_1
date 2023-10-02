@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show BottomNavigationBar, BottomNavigationBarItem, BuildContext, Colors, Curves, Icon, Icons, Key, PageController, PageView, Scaffold, State, StatefulWidget, Widget;
+import 'package:flutter_aula_1/pages/configuracoes_page.dart';
 import 'package:flutter_aula_1/pages/favoritas_page.dart';
 import 'package:flutter_aula_1/pages/moedas_page.dart';
 
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
         children: const [
           MoedasPage(),
           FavoritasPage(),
+          ConfiguracoesPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -41,6 +43,7 @@ class _HomePageState extends State<HomePage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todas'),
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Conta'),
         ],
         onTap: (pagina) {
           pc.animateToPage(
